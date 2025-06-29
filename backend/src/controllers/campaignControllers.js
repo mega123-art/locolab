@@ -1,5 +1,6 @@
 import { Campaign } from "../models/campaignModel.js";
 import { User } from "../models/userModel.js";
+import { uploadImages } from "../utils/imageUpload.js";
 import { Notification } from "../models/notificationModel.js";
 export const createCampaign = async (req, res) => {
   try {
@@ -11,6 +12,7 @@ export const createCampaign = async (req, res) => {
       maxDistance,
       budgetRange,
       scheduledDate,
+      rewardType,
     } = req.body;
     const userId = req.user.id;
 
@@ -35,6 +37,7 @@ export const createCampaign = async (req, res) => {
         .status(400)
         .json({ message: "You can only post one campaign per week" });
     }
+    const images=req.files ? await uploadImages(req.files) : [];
 
     // Create and save campaign
     const newCampaign = new Campaign({
@@ -45,6 +48,8 @@ export const createCampaign = async (req, res) => {
       maxDistance,
       budgetRange,
       scheduledDate,
+      rewardType,
+      images,
       postedBy: userId,
     });
 

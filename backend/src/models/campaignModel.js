@@ -5,13 +5,15 @@ const campaignSchema = new mongoose.Schema(
     description: { type: String, required: true },
     type: {
       type: String,
-      enum: ["Event", "Competition", "Product Promo", "Other"],
+      // enum: ["Event", "Competition", "Product Promo", "Other"],
       required: true,
     },
     location: { type: String, required: true },
     maxDistance: { type: Number, required: true },
     budgetRange: { type: String, required: true },
     scheduledDate: { type: Date, required: true },
+    rewardType: { type: String, enum: ["Barter", "Money"], required: true }, 
+    images: [{ type: String }],
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -1,30 +1,29 @@
 import { User } from "../models/userModel.js";
+
 export const searchCreators = async (req, res) => {
   try {
     const {
       searchTerm,
-      location,
-      maxDistance,
+      latitude,
+      longitude,
+      maxDistance, // in kilometers
       followers,
       niche,
       languages,
       sortBy,
+      page = 1,
+      limit = 20,
     } = req.query;
 
     // Base query for creators only
     const query = { role: "Creator" };
 
-    // Search term filter (name or niche)
+    // Search term filter
     if (searchTerm) {
       query.$or = [
-        { fullName: new RegExp(searchTerm, "i") }, // Case-insensitive match
+        { fullName: new RegExp(searchTerm, "i") },
         { niche: new RegExp(searchTerm, "i") },
       ];
-    }
-
-    // Location filter (exact match for now, can be extended to lat/lon)
-    if (location) {
-      query.location = location;
     }
 
     // Follower count filter
@@ -42,16 +41,36 @@ export const searchCreators = async (req, res) => {
       query.languages = { $in: languages.split(",") };
     }
 
-    // Fetch creators with sorting
+    // Location radius filter
+    if (latitude && longitude && maxDistance) {
+      query.location = {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [parseFloat(longitude), parseFloat(latitude)],
+          },
+          $maxDistance: parseFloat(maxDistance) * 1000, // Convert km to meters
+        },
+      };
+    }
+
+    // Sorting options
     const sortOptions = {};
-    if (sortBy === "followers") sortOptions.followers = -1; // Descending order
-    if (sortBy === "price") sortOptions.price = 1; // Ascending order (if added later)
+    if (sortBy === "followers") sortOptions.followers = -1; // Descending
+    if (!sortBy) sortOptions.followers = -1; // Default sort by followers
 
-    const creators = await User.find(query).sort(sortOptions);
+    // Pagination and Fetching
+    const creators = await User.find(query)
+      .sort(sortOptions)
+      .skip((page - 1) * parseInt(limit, 10))
+      .limit(parseInt(limit, 10));
 
-    res
-      .status(200)
-      .json({ message: "Creators fetched successfully", creators });
+    res.status(200).json({
+      message: "Creators fetched successfully",
+      creators,
+      currentPage: page,
+      total: creators.length,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
