@@ -1,9 +1,10 @@
 import { useAuth } from '../../auth/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -12,30 +13,56 @@ const Navbar = () => {
 
   if (!user) return null;
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <nav className="navbar">
       <div className="container">
         <div className="navbar-content">
-          <a href="#" className="navbar-brand">
+          <Link to={user.role === 'brand' ? '/brand' : user.role === 'admin' ? '/admin' : '/creator'} className="navbar-brand">
             LocoLab
-          </a>
+          </Link>
           
           <div className="navbar-nav">
             {user.role === 'brand' && (
               <>
-                <a href="/brand" className="btn btn-outline btn-sm">
+                <Link 
+                  to="/brand" 
+                  className={`btn btn-sm ${isActive('/brand') ? 'btn-primary' : 'btn-outline'}`}
+                >
                   Find Creators
-                </a>
-                <a href="/brand/campaign" className="btn btn-outline btn-sm">
+                </Link>
+                <Link 
+                  to="/brand/campaigns" 
+                  className={`btn btn-sm ${isActive('/brand/campaigns') ? 'btn-primary' : 'btn-outline'}`}
+                >
+                  My Campaigns
+                </Link>
+                <Link 
+                  to="/brand/campaign/new" 
+                  className={`btn btn-sm ${isActive('/brand/campaign/new') ? 'btn-primary' : 'btn-outline'}`}
+                >
                   Create Campaign
-                </a>
+                </Link>
               </>
             )}
             
             {user.role === 'admin' && (
-              <a href="/admin" className="btn btn-outline btn-sm">
+              <Link 
+                to="/admin" 
+                className={`btn btn-sm ${isActive('/admin') ? 'btn-primary' : 'btn-outline'}`}
+              >
                 Dashboard
-              </a>
+              </Link>
+            )}
+
+            {user.role === 'creator' && (
+              <Link 
+                to="/creator" 
+                className={`btn btn-sm ${isActive('/creator') ? 'btn-primary' : 'btn-outline'}`}
+              >
+                Dashboard
+              </Link>
             )}
             
             <div className="flex items-center gap-4">

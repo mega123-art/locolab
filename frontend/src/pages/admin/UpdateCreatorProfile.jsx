@@ -100,7 +100,7 @@ const UpdateCreatorProfile = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       
-      setMessage("Profile updated successfully!");
+      setMessage("Profile updated successfully! Redirecting to dashboard...");
       setMessageType("success");
       
       setTimeout(() => navigate("/admin"), 2000);

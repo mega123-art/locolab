@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PageLayout from "../../components/Layout/PageLayout";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 const CreateCampaign = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     niche: "",
@@ -68,26 +70,13 @@ const CreateCampaign = () => {
         },
       });
 
-      setMessage("Campaign created successfully!");
+      setMessage("Campaign created successfully! Redirecting to campaigns...");
       setMessageType("success");
       
-      // Reset form
-      setForm({
-        name: "",
-        niche: "",
-        city: "",
-        description: "",
-        startDate: "",
-        endDate: "",
-        rewardType: "barter",
-        budgetMin: "",
-        budgetMax: "",
-      });
-      setImages([]);
-      
-      // Clear file input
-      const fileInput = document.querySelector('input[type="file"]');
-      if (fileInput) fileInput.value = '';
+      // Redirect to campaigns list after 2 seconds
+      setTimeout(() => {
+        navigate("/brand/campaigns");
+      }, 2000);
       
     } catch (err) {
       setMessage(err.response?.data?.error || "Campaign creation failed");
@@ -269,10 +258,10 @@ const CreateCampaign = () => {
                 )}
               </div>
 
-              <div className="pt-4">
+              <div className="flex gap-4 pt-4">
                 <button
                   type="submit"
-                  className="btn btn-primary btn-lg w-full"
+                  className="btn btn-primary btn-lg flex-1"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -283,6 +272,15 @@ const CreateCampaign = () => {
                   ) : (
                     'Create Campaign'
                   )}
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={() => navigate("/brand/campaigns")}
+                  className="btn btn-outline"
+                  disabled={isLoading}
+                >
+                  Cancel
                 </button>
               </div>
             </form>

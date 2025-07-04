@@ -134,7 +134,7 @@ const AdminDashboard = () => {
                       </div>
                       
                       <button
-                        onClick={() => navigate(`/admin/update/${creator._id}`)}
+                        onClick={() => navigate(`/admin/creator/${creator._id}`)}
                         className="btn btn-primary"
                       >
                         Add Profile
@@ -208,7 +208,7 @@ const AdminDashboard = () => {
                       </div>
                       
                       <button
-                        onClick={() => navigate(`/admin/update/${creator.user._id}`)}
+                        onClick={() => navigate(`/admin/creator/${creator.user._id}`)}
                         className="btn btn-secondary"
                       >
                         Edit Profile

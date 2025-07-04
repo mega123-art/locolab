@@ -31,9 +31,11 @@ const SignIn = () => {
       localStorage.setItem("user", JSON.stringify(user));
       login(user.email, form.password);
 
+      // Redirect based on user role
       if (user.role === "brand") navigate("/brand");
       else if (user.role === "admin") navigate("/admin");
-      else if (user.role === "creator") navigate("/");
+      else if (user.role === "creator") navigate("/creator");
+      else navigate("/");
     } catch (err) {
       setError(err.response?.data?.error || "Login failed");
     } finally {

@@ -1,34 +1,94 @@
-import { BrowserRouter as Router, Routes, Route,Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthContext";
+import ProtectedRoute from "./auth/ProtectedRoute";
 import SavedCreators from "./pages/brand/SavedCreators";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import BrandHome from "./pages/brand/BrandHome";
 import CreateCampaign from "./pages/brand/CreateCampaign";
+import CampaignList from "./pages/brand/CampaignList";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UpdateCreatorProfile from "./pages/admin/UpdateCreatorProfile";
 import ForgotPassword from "./auth/ForgotPassword";
 import ResetPassword from "./auth/ResetPassword";
+import CreatorDashboard from "./pages/creator/CreatorDashboard";
+
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/signup" />} />
+          {/* Public routes */}
+          <Route path="/" element={<Navigate to="/signin" />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/brand" element={<BrandHome />} />
-          <Route path="/brand/campaign" element={<CreateCampaign />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/brand/saved/:campaignId" element={<SavedCreators />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route
-            path="/admin/update/:userId"
-            element={<UpdateCreatorProfile />}
-          />
-
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+          {/* Protected Brand routes */}
+          <Route 
+            path="/brand" 
+            element={
+              <ProtectedRoute allowedRoles={['brand']}>
+                <BrandHome />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/brand/campaigns" 
+            element={
+              <ProtectedRoute allowedRoles={['brand']}>
+                <CampaignList />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/brand/campaign/new" 
+            element={
+              <ProtectedRoute allowedRoles={['brand']}>
+                <CreateCampaign />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/brand/campaign/:campaignId/starred" 
+            element={
+              <ProtectedRoute allowedRoles={['brand']}>
+                <SavedCreators />
+              </ProtectedRoute>
+            } 
+          />
+
+          {/* Protected Admin routes */}
+          <Route 
+            path="/admin" 
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/creator/:userId" 
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <UpdateCreatorProfile />
+              </ProtectedRoute>
+            } 
+          />
+
+          {/* Protected Creator routes */}
+          <Route 
+            path="/creator" 
+            element={
+              <ProtectedRoute allowedRoles={['creator']}>
+                <CreatorDashboard />
+              </ProtectedRoute>
+            } 
+          />
+
+          {/* Catch all route */}
+          <Route path="*" element={<Navigate to="/signin" />} />
         </Routes>
       </Router>
     </AuthProvider>
