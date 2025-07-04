@@ -19,7 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/creators", creatorRoutes);
 app.use("/api/campaigns", campaignRoutes);
 app.use("/api/admin", adminRoutes);
-
+app.use("/uploads", express.static("uploads"));
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
