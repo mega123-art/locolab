@@ -8,6 +8,7 @@ import LoadingSpinner from "../../components/UI/LoadingSpinner";
 const SavedCreators = () => {
   const { campaignId } = useParams();
   const [starred, setStarred] = useState([]);
+  const [campaign, setCampaign] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +23,20 @@ const SavedCreators = () => {
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setStarred(res.data.starred);
+        
+        // Also fetch campaign details for better context
+        try {
+          const campaignRes = await axios.get(
+            `${import.meta.env.VITE_API_URL}/campaigns/${campaignId}`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          setCampaign(campaignRes.data.campaign);
+        } catch (campaignErr) {
+          // Campaign details not critical, continue without them
+          console.log("Could not fetch campaign details:", campaignErr);
+        }
       } catch (err) {
+        console.error("Error fetching starred creators:", err);
         setError(err.response?.data?.error || "Failed to load saved creators");
       } finally {
         setIsLoading(false);
@@ -34,7 +48,10 @@ const SavedCreators = () => {
 
   if (isLoading) {
     return (
-      <PageLayout title="Saved Creators" subtitle="Your starred creators for this campaign">
+      <PageLayout 
+        title="Saved Creators" 
+        subtitle={campaign ? `Starred creators for "${campaign.name}"` : "Your starred creators for this campaign"}
+      >
         <div className="text-center py-12">
           <LoadingSpinner size="lg" />
           <p className="mt-4 text-gray-600">Loading saved creators...</p>
@@ -44,10 +61,24 @@ const SavedCreators = () => {
   }
 
   return (
-    <PageLayout title="Saved Creators" subtitle="Your starred creators for this campaign">
+    <PageLayout 
+      title="Saved Creators" 
+      subtitle={campaign ? `Starred creators for "${campaign.name}"` : "Your starred creators for this campaign"}
+    >
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-red-600">{error}</p>
+        </div>
+      )}
+
+      {campaign && (
+        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+          <h3 className="font-semibold text-gray-900 mb-2">{campaign.name}</h3>
+          <div className="flex gap-4 text-sm text-gray-600">
+            <span>📍 {campaign.city}</span>
+            <span>🏷️ {campaign.niche}</span>
+            <span>⭐ {starred.length} starred creators</span>
+          </div>
         </div>
       )}
 

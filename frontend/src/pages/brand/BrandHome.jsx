@@ -7,31 +7,58 @@ import LoadingSpinner from "../../components/UI/LoadingSpinner";
 const BrandHome = () => {
   const [city, setCity] = useState("");
   const [creators, setCreators] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
+  const [selectedCampaign, setSelectedCampaign] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchPerformed, setSearchPerformed] = useState(false);
 
   const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  // Fetch user's campaigns on component mount
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/campaigns/brand/${user.id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setCampaigns(res.data.campaigns || []);
+        // Auto-select the first campaign if available
+        if (res.data.campaigns && res.data.campaigns.length > 0) {
+          setSelectedCampaign(res.data.campaigns[0]._id);
+        }
+      } catch (err) {
+        console.error("Error fetching campaigns:", err);
+        // Don't show error for missing campaigns, just continue without them
+      }
+    };
+
+    fetchCampaigns();
+  }, [token, user.id]);
 
   const handleStar = async (creatorId) => {
+    if (!selectedCampaign) {
+      alert("Please select a campaign first or create one to star creators.");
+      return;
+    }
+
     try {
-      // For now, we'll use a placeholder campaign ID
-      // In a real app, you'd have the user select an active campaign
-      const campaignId = "placeholder-campaign-id";
-      
       await axios.patch(
-        `${import.meta.env.VITE_API_URL}/campaigns/${campaignId}/star/${creatorId}`,
+        `${import.meta.env.VITE_API_URL}/campaigns/${selectedCampaign}/star/${creatorId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
       
-      // Show success message
       alert("Creator starred successfully!");
     } catch (err) {
       console.error("Star error:", err);
-      alert("Failed to star creator. Please try again.");
+      alert(err.response?.data?.error || "Failed to star creator. Please try again.");
     }
   };
 
@@ -76,31 +103,63 @@ const BrandHome = () => {
       <div className="mb-8">
         <div className="card">
           <div className="card-body">
-            <form onSubmit={handleSubmit} className="flex gap-4">
-              <div className="flex-1">
-                <input
-                  type="text"
-                  value={city}
-                  placeholder="Enter city name (e.g., Mumbai, Delhi, Bangalore)"
-                  onChange={(e) => setCity(e.target.value)}
-                  className="form-input"
-                  disabled={isLoading}
-                />
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Campaign Selection */}
+              {campaigns.length > 0 && (
+                <div className="form-group">
+                  <label className="form-label">Select Campaign to Star Creators</label>
+                  <select
+                    value={selectedCampaign}
+                    onChange={(e) => setSelectedCampaign(e.target.value)}
+                    className="form-select"
+                  >
+                    <option value="">Choose a campaign...</option>
+                    {campaigns.map((campaign) => (
+                      <option key={campaign._id} value={campaign._id}>
+                        {campaign.name} ({campaign.city})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {campaigns.length === 0 && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                  <p className="text-yellow-800 text-sm">
+                    <strong>Note:</strong> You need to create a campaign first to star creators. 
+                    <a href="/brand/campaign/new" className="text-red-600 hover:text-red-700 ml-1">
+                      Create one here
+                    </a>
+                  </p>
+                </div>
+              )}
+
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    value={city}
+                    placeholder="Enter city name (e.g., Mumbai, Delhi, Bangalore)"
+                    onChange={(e) => setCity(e.target.value)}
+                    className="form-input"
+                    disabled={isLoading}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={isLoading || !city.trim()}
+                >
+                  {isLoading ? (
+                    <>
+                      <LoadingSpinner size="sm" />
+                      Searching...
+                    </>
+                  ) : (
+                    'Search Creators'
+                  )}
+                </button>
               </div>
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={isLoading || !city.trim()}
-              >
-                {isLoading ? (
-                  <>
-                    <LoadingSpinner size="sm" />
-                    Searching...
-                  </>
-                ) : (
-                  'Search Creators'
-                )}
-              </button>
             </form>
           </div>
         </div>
@@ -139,6 +198,13 @@ const BrandHome = () => {
             <h2 className="text-xl font-semibold text-gray-900">
               Found {creators.length} creator{creators.length !== 1 ? 's' : ''} in {city}
             </h2>
+            {selectedCampaign && (
+              <div className="text-sm text-gray-600">
+                Starring for: <span className="font-medium">
+                  {campaigns.find(c => c._id === selectedCampaign)?.name}
+                </span>
+              </div>
+            )}
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -147,7 +213,7 @@ const BrandHome = () => {
                 key={creator._id}
                 creator={creator}
                 onStar={handleStar}
-                showStarButton={true}
+                showStarButton={!!selectedCampaign}
               />
             ))}
           </div>
