@@ -40,6 +40,36 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+// POST /create-admin (temporary endpoint for creating admin)
+router.post("/create-admin", async (req, res) => {
+  try {
+    const { email, password, adminSecret } = req.body;
+
+    // Simple secret check - in production, use environment variable
+    if (adminSecret !== "admin123") {
+      return res.status(403).json({ error: "Invalid admin secret" });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser)
+      return res.status(409).json({ error: "Email already in use" });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newAdmin = new User({
+      email,
+      password: hashedPassword,
+      role: "admin",
+    });
+
+    await newAdmin.save();
+    res.status(201).json({ message: "Admin user created successfully" });
+  } catch (err) {
+    console.error("Create admin error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // POST /signin
 router.post("/signin", async (req, res) => {
   try {
@@ -129,4 +159,5 @@ router.get("/check-username", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 module.exports = router;

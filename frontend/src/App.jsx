@@ -4,6 +4,7 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import SavedCreators from "./pages/brand/SavedCreators";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import CreateAdmin from "./pages/CreateAdmin";
 import BrandHome from "./pages/brand/BrandHome";
 import CreateCampaign from "./pages/brand/CreateCampaign";
 import CampaignList from "./pages/brand/CampaignList";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<Navigate to="/signin" />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/create-admin" element={<CreateAdmin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
