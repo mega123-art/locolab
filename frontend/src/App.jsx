@@ -13,6 +13,8 @@ import UpdateCreatorProfile from "./pages/admin/UpdateCreatorProfile";
 import ForgotPassword from "./auth/ForgotPassword";
 import ResetPassword from "./auth/ResetPassword";
 import CreatorDashboard from "./pages/creator/CreatorDashboard";
+import LandingPage from "./pages/LandingPage";
+import "./index.css";
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
       <Router>
         <Routes>
           {/* Public routes */}
-          <Route path="/" element={<Navigate to="/signin" />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/create-admin" element={<CreateAdmin />} />
@@ -90,7 +92,7 @@ function App() {
           />
 
           {/* Catch all route */}
-          <Route path="*" element={<Navigate to="/signin" />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     </AuthProvider>
