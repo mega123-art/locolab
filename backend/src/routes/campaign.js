@@ -60,6 +60,20 @@ router.post("/", authenticate, authorizeRoles("brand"), upload.array("images", 5
   }
 });
 
+// GET /api/campaigns/all - Get all campaigns (for creators)
+router.get("/all", authenticate, authorizeRoles("creator"), async (req, res) => {
+  try {
+    const campaigns = await Campaign.find()
+      .populate("brand", "email")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ campaigns });
+  } catch (err) {
+    console.error("Get all campaigns error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // GET /api/campaigns/brand/:brandId - Get campaigns by brand
 router.get("/brand/:brandId", authenticate, authorizeRoles("brand"), async (req, res) => {
   try {

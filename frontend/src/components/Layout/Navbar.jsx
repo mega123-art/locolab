@@ -33,6 +33,12 @@ const Navbar = () => {
                   Find Creators
                 </Link>
                 <Link 
+                  to="/brand/creators" 
+                  className={`btn btn-sm ${isActive('/brand/creators') ? 'btn-primary' : 'btn-outline'}`}
+                >
+                  All Creators
+                </Link>
+                <Link 
                   to="/brand/campaigns" 
                   className={`btn btn-sm ${isActive('/brand/campaigns') ? 'btn-primary' : 'btn-outline'}`}
                 >
@@ -57,12 +63,20 @@ const Navbar = () => {
             )}
 
             {user.role === 'creator' && (
-              <Link 
-                to="/creator" 
-                className={`btn btn-sm ${isActive('/creator') ? 'btn-primary' : 'btn-outline'}`}
-              >
-                Dashboard
-              </Link>
+              <>
+                <Link 
+                  to="/creator" 
+                  className={`btn btn-sm ${isActive('/creator') ? 'btn-primary' : 'btn-outline'}`}
+                >
+                  Dashboard
+                </Link>
+                <Link 
+                  to="/creator/campaigns" 
+                  className={`btn btn-sm ${isActive('/creator/campaigns') ? 'btn-primary' : 'btn-outline'}`}
+                >
+                  All Campaigns
+                </Link>
+              </>
             )}
             
             <div className="flex items-center gap-4">

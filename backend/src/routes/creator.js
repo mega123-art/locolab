@@ -21,6 +21,21 @@ router.get("/", authenticate, authorizeRoles("brand"), async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+// GET /api/creators/all - Get all creators (for brands)
+router.get("/all", authenticate, authorizeRoles("brand"), async (req, res) => {
+  try {
+    const profiles = await CreatorProfile.find()
+      .populate("user", "username contactEmail")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ creators: profiles });
+  } catch (err) {
+    console.error("Fetch all creators error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 router.get("/profile/:id", async (req, res) => {
   try {
     const creatorId = req.params.id;
