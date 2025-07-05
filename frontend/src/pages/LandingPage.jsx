@@ -27,42 +27,46 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="py-20 bg-gradient-to-br from-red-50 to-white">
+      <section id="home" className="py-20 bg-gradient-to-br from-red-50 via-white to-red-50">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-gray-900">The Marketplace Where</span>
-            <br />
-            <span className="text-red-600">Influence Meets</span>
-            <br />
-            <span className="text-gray-900">Local Impact</span>
-          </h1>
-          
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Connect brands with authentic local content creators. Build meaningful partnerships 
-            that drive real engagement and create lasting impact in communities across India.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/signup" className="btn btn-primary btn-lg">
-              Join as Creator
-            </Link>
-            <Link to="/signup" className="btn btn-secondary btn-lg">
-              Partner as Brand
-            </Link>
-          </div>
-          
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">1000+</div>
-              <div className="text-gray-600">Active Creators</div>
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              <span className="text-gray-900">The Marketplace Where</span>
+              <br />
+              <span className="text-red-600 bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
+                Influence Meets
+              </span>
+              <br />
+              <span className="text-gray-900">Local Impact</span>
+            </h1>
+            
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Connect brands with authentic local content creators. Build meaningful partnerships 
+              that drive real engagement and create lasting impact in communities across India.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Link to="/signup" className="btn btn-primary btn-lg transform hover:scale-105 transition-transform">
+                🎨 Join as Creator
+              </Link>
+              <Link to="/signup" className="btn btn-secondary btn-lg transform hover:scale-105 transition-transform">
+                🏢 Partner as Brand
+              </Link>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">500+</div>
-              <div className="text-gray-600">Brand Partners</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">50+</div>
-              <div className="text-gray-600">Cities Covered</div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center p-6 bg-white rounded-lg shadow-sm border border-gray-100">
+                <div className="text-3xl font-bold text-red-600 mb-2">1000+</div>
+                <div className="text-gray-600 font-medium">Active Creators</div>
+              </div>
+              <div className="text-center p-6 bg-white rounded-lg shadow-sm border border-gray-100">
+                <div className="text-3xl font-bold text-red-600 mb-2">500+</div>
+                <div className="text-gray-600 font-medium">Brand Partners</div>
+              </div>
+              <div className="text-center p-6 bg-white rounded-lg shadow-sm border border-gray-100">
+                <div className="text-3xl font-bold text-red-600 mb-2">50+</div>
+                <div className="text-gray-600 font-medium">Cities Covered</div>
+              </div>
             </div>
           </div>
         </div>
@@ -81,89 +85,172 @@ const LandingPage = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {/* Feature 1 - Local Discovery */}
+            <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Local Discovery</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-red-600 transition-colors">
+                Local Discovery
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
                 Find authentic creators in specific cities and regions. Target your campaigns 
-                with precision and connect with audiences that matter.
+                with precision and connect with audiences that matter most to your brand.
               </p>
+              <div className="mt-6 flex items-center text-red-600 font-medium text-sm group-hover:text-red-700">
+                <span>Explore Creators</span>
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
             </div>
 
-            {/* Feature 2 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Feature 2 - Smart Analytics */}
+            <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Smart Analytics</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-red-600 transition-colors">
+                Smart Analytics
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
                 Access detailed creator metrics, engagement rates, and performance data 
-                to make informed partnership decisions.
+                to make informed partnership decisions backed by real insights.
               </p>
+              <div className="mt-6 flex items-center text-red-600 font-medium text-sm group-hover:text-red-700">
+                <span>View Analytics</span>
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
             </div>
 
-            {/* Feature 3 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Feature 3 - Flexible Rewards */}
+            <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Flexible Rewards</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-red-600 transition-colors">
+                Flexible Rewards
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
                 Choose between monetary compensation or product barter systems. 
-                Create campaigns that work for your budget and goals.
+                Create campaigns that work perfectly for your budget and goals.
               </p>
+              <div className="mt-6 flex items-center text-red-600 font-medium text-sm group-hover:text-red-700">
+                <span>Setup Rewards</span>
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
             </div>
 
-            {/* Feature 4 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Feature 4 - Curated Network */}
+            <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Curated Network</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-red-600 transition-colors">
+                Curated Network
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
                 Work with verified creators who have been vetted for quality, 
-                authenticity, and professional standards.
+                authenticity, and professional standards. Quality guaranteed.
               </p>
+              <div className="mt-6 flex items-center text-red-600 font-medium text-sm group-hover:text-red-700">
+                <span>Browse Network</span>
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
             </div>
 
-            {/* Feature 5 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Feature 5 - Quick Campaigns */}
+            <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Quick Campaigns</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-red-600 transition-colors">
+                Quick Campaigns
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
                 Launch campaigns in minutes, not weeks. Our streamlined process 
-                gets your brand message to market faster.
+                gets your brand message to market faster than ever before.
               </p>
+              <div className="mt-6 flex items-center text-red-600 font-medium text-sm group-hover:text-red-700">
+                <span>Create Campaign</span>
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
             </div>
 
-            {/* Feature 6 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Feature 6 - Secure Platform */}
+            <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Secure Platform</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-red-600 transition-colors">
+                Secure Platform
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
                 Built with enterprise-grade security. Your data, campaigns, 
-                and creator relationships are protected at every step.
+                and creator relationships are protected at every step of the journey.
+              </p>
+              <div className="mt-6 flex items-center text-red-600 font-medium text-sm group-hover:text-red-700">
+                <span>Learn Security</span>
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Features Row */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Feature 7 - Real-time Collaboration */}
+            <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-red-600 transition-colors">
+                Real-time Collaboration
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Communicate directly with creators through our built-in messaging system. 
+                Share briefs, feedback, and collaborate seamlessly on campaign content.
+              </p>
+            </div>
+
+            {/* Feature 8 - Performance Tracking */}
+            <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-red-600 transition-colors">
+                Performance Tracking
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Monitor campaign performance with detailed analytics and ROI tracking. 
+                Get insights that help you optimize future collaborations and maximize impact.
               </p>
             </div>
           </div>
@@ -247,7 +334,7 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-red-600">
+      <section className="py-20 bg-gradient-to-r from-red-600 to-red-700">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
             Ready to Transform Your Marketing?
@@ -257,10 +344,10 @@ const LandingPage = () => {
             partnerships through LocoLab.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/signup" className="btn bg-white text-red-600 hover:bg-gray-100 btn-lg">
+            <Link to="/signup" className="btn bg-white text-red-600 hover:bg-gray-100 btn-lg transform hover:scale-105 transition-all">
               Get Started Today
             </Link>
-            <a href="#contact" className="btn border-2 border-white text-white hover:bg-white hover:text-red-600 btn-lg">
+            <a href="#contact" className="btn border-2 border-white text-white hover:bg-white hover:text-red-600 btn-lg transform hover:scale-105 transition-all">
               Contact Sales
             </a>
           </div>
